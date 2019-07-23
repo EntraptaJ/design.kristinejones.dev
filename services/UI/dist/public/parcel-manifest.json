@@ -1,0 +1,11 @@
+{
+  "client.urls": "/client.json",
+  "client.tsx": "/client.19e91e16.js",
+  "routes/Home/index.tsx": "/Home.13f07851.js",
+  "routes/Authentication/Login.tsx": "/Login.a8996182.js",
+  "routes/Authentication/Register.tsx": "/Register.ee8fd73c.js",
+  "routes/Users/index.tsx": "/Users.fb4ab549.js",
+  "Components/DesignExamples/Buttons/index.tsx": "/Buttons.1b2df8cd.js",
+  "Components/Layout/AppBar/index.tsx": "/AppBar.1cd3d182.js",
+  "Components/Layout/Nav/index.tsx": "/Nav.67a8c31a.js"
+}

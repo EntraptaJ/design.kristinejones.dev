@@ -1,0 +1,6 @@
+# import "ui/lib/GraphQL/User.graphql"
+query Users($search: String) {
+  users(username: $search) {
+    ...User
+  }
+}
