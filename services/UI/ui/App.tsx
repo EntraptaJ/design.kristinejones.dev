@@ -25,7 +25,7 @@ const App: AppType = () => {
 
   return (
     <SessionProvider>
-      <AppBar appName='Project Management' />
+      <AppBar appName={`Kristian's Design`} />
       <NavContext.Provider value={navContext}>
         <div className='main-content' style={{ display: 'flex', flex: '1 1', position: 'relative' }}>
           <Nav />

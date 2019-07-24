@@ -10,10 +10,10 @@ export const MyLoadable = (opts: Omit<OptionsWithoutRender<unknown>, 'loading' |
       {
         loading: Loading,
         delay: 200,
-        timeout: 10000,
+        timeout: 10000
       },
-      opts,
-    ),
+      opts
+    )
   );
 
 export type LoadableType =
@@ -32,7 +32,7 @@ export interface NavItem {
   path: string;
 
   /**
-   * Auth Mode. False to show only when user is logged out, 
+   * Auth Mode. False to show only when user is logged out,
    * True shows only when logged in.
    * Undefined shows for any state.
    */
@@ -73,8 +73,8 @@ export const AppRoutes: NavItem[] = [
     label: 'Home',
     Loadable: MyLoadable({
       loader: () => import('ui/routes/Home'),
-      modules: ['routes/Home/index.tsx'],
-    }),
+      modules: ['routes/Home/index.tsx']
+    })
   },
   {
     path: '/Login',
@@ -83,8 +83,8 @@ export const AppRoutes: NavItem[] = [
     authMode: false,
     Loadable: MyLoadable({
       loader: () => import('ui/routes/Authentication/Login'),
-      modules: ['routes/Authentication/Login.tsx'],
-    }),
+      modules: ['routes/Authentication/Login.tsx']
+    })
   },
   {
     path: '/Register',
@@ -93,8 +93,8 @@ export const AppRoutes: NavItem[] = [
     authMode: false,
     Loadable: MyLoadable({
       loader: () => import('ui/routes/Authentication/Register'),
-      modules: ['routes/Authentication/Register.tsx'],
-    }),
+      modules: ['routes/Authentication/Register.tsx']
+    })
   },
   {
     path: '/Users',
@@ -102,7 +102,7 @@ export const AppRoutes: NavItem[] = [
     label: 'Users',
     Loadable: MyLoadable({
       loader: () => import('ui/routes/Users'),
-      modules: ['routes/Users/index.tsx'],
+      modules: ['routes/Users/index.tsx']
     }),
     children: [
       {
@@ -113,9 +113,9 @@ export const AppRoutes: NavItem[] = [
         hidden: true,
         Loadable: MyLoadable({
           loader: () => import('ui/routes/Users/User'),
-          modules: ['routes/Users/User.tsx'],
-        }),
-      },
+          modules: ['routes/Users/User.tsx']
+        })
+      }
     ]
   },
   {
@@ -133,10 +133,9 @@ export const AppRoutes: NavItem[] = [
         label: 'Buttons',
         Loadable: MyLoadable({
           loader: () => import('ui/routes/DesignExamples/Buttons'),
-          modules: ['routes/DesignExamples/Buttons.tsx'],
-        }),
-      },
-
+          modules: ['routes/DesignExamples/Buttons.tsx']
+        })
+      }
     ]
   }
 ];

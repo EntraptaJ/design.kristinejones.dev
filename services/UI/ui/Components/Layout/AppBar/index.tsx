@@ -20,7 +20,7 @@ type AppBarType = FunctionComponent<AppBarProps>;
 const AppBar: AppBarType = ({ appName }) => {
   const theme = useTheme<Theme>();
   const { isAuthed } = useSession();
-  const [logoutFN] = useLogout()
+  const [logoutFN] = useLogout();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const classes = useStyles();
   const open = Boolean(anchorEl);
@@ -30,7 +30,7 @@ const AppBar: AppBarType = ({ appName }) => {
   const handleClose = () => setAnchorEl(null);
 
   const onMenuItem = (option: string) => () => {
-    if (option === 'Logout') logoutFN()
+    if (option === 'Logout') logoutFN();
     handleClose();
   };
 

@@ -25,20 +25,20 @@ export const UserSearchPage: SearchPageType = () => {
         value={filter}
         onChange={({ target }) => setFilter(target.value)}
       />
-      {!Users.loading ? (
-        !Users.error ? (
-          <List>
-            {Users.Users.map(({ username, _id }) => (
-              <ListItem component={Link} {...{ to: `/Users/${_id}` }} key={_id} button style={{ width: '100%' }}>
-                <Typography variant='body1'>{username}</Typography>
-              </ListItem>
-            ))}
-          </List>
-        ) : (
-          <></>
-        )
+      {Users.Users ? (
+        <List>
+          {Users.Users.map(({ username, _id }) => (
+            <ListItem component={Link} {...{ to: `/Users/${_id}` }} key={_id} button style={{ width: '100%' }}>
+              <Typography variant='body1'>{username}</Typography>
+            </ListItem>
+          ))}
+        </List>
+      ) : Users.error ? (
+        <div>TODO: ERROR</div>
+      ) : Users.loading ? (
+        <></>
       ) : (
-        <div>Create Error Screen</div>
+        <div>TODO: ERROR</div>
       )}
     </Box>
   );
