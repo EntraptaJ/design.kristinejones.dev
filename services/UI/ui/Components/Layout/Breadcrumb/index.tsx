@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface Path {
+export interface Path {
   label: string;
   to: string;
   final?: boolean;
@@ -46,8 +46,9 @@ type BreadCrumbBarType = FunctionComponent<BreadCrumbBarProps>;
 export const BreadcrumbBar: BreadCrumbBarType = ({ path }) => {
   const classes = useStyles();
   const theme = useTheme<Theme>();
+
   return (
-    <Paper elevation={0} id='BreadcrumbBar' style={{ zIndex: theme.zIndex.modal + 1 }}>
+    <Paper elevation={0} id='BreadcrumbBar' style={{ zIndex: theme.zIndex.appBar + 1, maxWidth: '100%' }}>
       <Breadcrumbs className={classes.breadcrumbBar} separator={<NavigateNextIcon fontSize='small' />} aria-label='Breadcrumb'>
         {path.map((props, index) => (
           <Breadcrumb key={index} {...props} final={index === path.length - 1} />

@@ -135,6 +135,15 @@ export const AppRoutes: NavItem[] = [
           loader: () => import('ui/routes/DesignExamples/Buttons'),
           modules: ['routes/DesignExamples/Buttons.tsx']
         })
+      },
+      {
+        path: '/Breadcrumb',
+        to: '/Designs/Breadcrumb',
+        label: 'Breadcrumb',
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/DesignExamples/Breadcrumbs'),
+          modules: ['routes/DesignExamples/Breadcrumbs.tsx']
+        })
       }
     ]
   }

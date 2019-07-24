@@ -10,7 +10,6 @@ type ButtonsDesignExampleType = FunctionComponent;
 export const ButtonsDesignExample: ButtonsDesignExampleType = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const simulateLoad = () => {
-    console.log();
     setLoading(true);
     setTimeout(() => setLoading(false), 1500);
   };
