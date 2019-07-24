@@ -10,19 +10,29 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import MenuIcon from '@material-ui/icons/Menu';
-import { navigate } from '@reach/router';
+import { Link } from '@reach/router';
 import React, { FunctionComponent, useState, Fragment } from 'react';
 import { AppRoutes, LoadableType, NavItem } from 'ui/Components/AppRoutes';
 import { useStyles } from 'ui/lib/Styles';
 import { useNav } from './useNav';
 import { useSession } from 'ui/Components/SessionProvider';
 import { useTheme } from '@material-ui/styles';
+import { useLocation } from 'ui/Components/Layout/useLocation';
 
 interface NavMenuItemProps {
   to: string;
   label: string;
   Loadable: LoadableType;
-  onClick: () => any;
+  alignItems?: 'flex-start' | 'center';
+  autoFocus?: boolean;
+  ContainerComponent?: React.ElementType<React.HTMLAttributes<HTMLDivElement>>;
+  ContainerProps?: React.HTMLAttributes<HTMLDivElement>;
+  dense?: boolean;
+  disabled?: boolean;
+  disableGutters?: boolean;
+  divider?: boolean;
+  focusVisibleClassName?: string;
+  selected?: boolean;
 }
 
 const useListStyles = makeStyles((theme: Theme) =>
@@ -65,13 +75,14 @@ const ParentListItem: FunctionComponent<{ label: string }> = ({ label, children 
 
 const NavMenuItem: NavMenuItemType = ({ label, to, Loadable, ...props }) => {
   return (
-    <ListItem button {...props}>
+    <ListItem button component={Link} {...{ to }} {...props}>
       <ListItemText primary={label} />
     </ListItem>
   );
 };
 
 const Nav: NavType = props => {
+  const Location = useLocation();
   const { isAuthed } = useSession();
   const { navOpen, toggleNav, closeNav } = useNav();
   const isMobileState = typeof window === 'undefined' ? true : window.matchMedia('(max-width: 640px)').matches;
@@ -86,11 +97,6 @@ const Nav: NavType = props => {
     </UniversalPortal>
   );
 
-  const NavItemClick = (to: string) => {
-    navigate(to);
-    closeNav();
-  };
-
   const handleNavItems = (routes: NavItem[]): JSX.Element[] =>
     routes.map(({ authMode, ...route }) =>
       route.hidden ? (
@@ -98,13 +104,13 @@ const Nav: NavType = props => {
       ) : route.children ? (
         typeof authMode === 'undefined' || authMode === isAuthed ? (
           <ParentListItem label={route.label} key={route.to}>
-            <NavMenuItem onClick={() => NavItemClick(route.to)} {...route} /> {handleNavItems(route.children)}
+            <NavMenuItem selected={route.to === Location.pathname} {...route} /> {handleNavItems(route.children)}
           </ParentListItem>
         ) : (
           <></>
         )
       ) : typeof authMode === 'undefined' || authMode === isAuthed ? (
-        <NavMenuItem key={route.to} onClick={() => NavItemClick(route.to)} {...route} />
+        <NavMenuItem selected={route.to === Location.pathname} key={route.to} {...route} />
       ) : (
         <Fragment key={route.path}></Fragment>
       )

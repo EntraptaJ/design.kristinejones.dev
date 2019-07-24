@@ -106,12 +106,23 @@ export const AppRoutes: NavItem[] = [
     })
   },
   {
-    path: '/Buttons',
-    to: '/Buttons',
-    label: 'Buttons',
+    path: '/Designs',
+    to: '/Designs/',
+    label: 'Design Examples',
     Loadable: MyLoadable({
-      loader: () => import('ui/Components/DesignExamples/Buttons'),
-      modules: ['Components/DesignExamples/Buttons/index.tsx'],
+      loader: () => import('ui/routes/DesignExamples'),
+      modules: ['routes/DesignExamples/index.tsx']
     }),
-  },
+    children: [
+      {
+        path: '/Buttons',
+        to: '/Designs/Buttons',
+        label: 'Buttons',
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/DesignExamples/Buttons'),
+          modules: ['routes/DesignExamples/Buttons.tsx'],
+        }),
+      }
+    ]
+  }
 ];

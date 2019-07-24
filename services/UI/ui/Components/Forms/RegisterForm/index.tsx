@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import REGISTERGQL from './registerUser.graphql';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
 import { navigate } from '@reach/router';
+import { Form } from 'ui/Components/Styles/Form';
 
 type RegisterFormType = FunctionComponent;
 
@@ -34,11 +35,7 @@ export const RegisterForm: RegisterFormType = () => {
   };
 
   return (
-    <form style={BoxStyle} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant='h4' gutterBottom>
-        Register
-      </Typography>
-
+    <Form title='Register' onSubmit={handleSubmit(onSubmit)}>
       <TextField
         style={FieldStyle}
         variant='outlined'
@@ -61,6 +58,6 @@ export const RegisterForm: RegisterFormType = () => {
       <Button color='primary' variant='contained' style={FieldStyle} type='submit'>
         Register
       </Button>
-    </form>
+    </Form>
   );
 };

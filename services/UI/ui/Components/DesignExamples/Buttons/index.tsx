@@ -4,9 +4,9 @@ import { BaseButton } from 'ui/Components/Forms/Button/BaseButton';
 import { ProgressButton } from 'ui/Components/Forms/Button/ProgressButton';
 import { Box } from 'ui/Components/Styles/Box';
 
-type ButtonDesignExampleType = FunctionComponent;
+type ButtonsDesignExampleType = FunctionComponent;
 
-const ButtonDesignExample: ButtonDesignExampleType = () => {
+export const ButtonsDesignExample: ButtonsDesignExampleType = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const simulateLoad = () => {
     console.log()
@@ -23,6 +23,3 @@ const ButtonDesignExample: ButtonDesignExampleType = () => {
     </>
   );
 };
-
-
-export default ButtonDesignExample;

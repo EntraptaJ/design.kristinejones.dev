@@ -1,7 +1,10 @@
 {
   "cSpell.ignoreWords": [
     "clsx",
+    "exit",
     "inmemory",
-    "passthrough"
+    "on",
+    "passthrough",
+    "unmount"
   ]
 }

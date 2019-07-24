@@ -7,6 +7,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import useForm from 'react-hook-form';
 import { BoxStyle, FieldStyle } from 'ui/lib/Styles';
 import { useLogin } from 'ui/Components/SessionProvider';
+import { Form } from 'ui/Components/Styles/Form';
 
 type LoginFormType = FunctionComponent;
 
@@ -45,10 +46,7 @@ export const LoginForm: LoginFormType = () => {
   );
 
   return (
-    <form style={BoxStyle} onSubmit={handleSubmit(onSubmit)}>
-      <Typography variant='h4' gutterBottom>
-        Login
-      </Typography>
+    <Form title='Login' onSubmit={handleSubmit(onSubmit)}>
 
       {invalid.field && (
           <FormHelperText error style={{ color: '#b00020' }}>
@@ -80,6 +78,6 @@ export const LoginForm: LoginFormType = () => {
       <Button color='primary' variant='contained' style={FieldStyle} type='submit'>
         Login
       </Button>
-    </form>
+    </Form>
   );
 };

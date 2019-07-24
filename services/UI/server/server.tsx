@@ -18,7 +18,7 @@ import { ServerStyleSheets } from '@material-ui/styles';
 import { MuiThemeProvider } from '@material-ui/core';
 import { theme } from 'ui/Components/Theme';
 import { CookiesProvider } from 'react-cookie';
-import { ApolloProvider } from 'ui/lib/ApolloProvider'
+import { ApolloProvider } from 'ui/lib/ApolloProvider';
 
 export interface AppState {
   PROPS: any;
@@ -60,22 +60,6 @@ export const uiServer = async (ctx: Context, config: Config) => {
   try {
     renderToString(
       <ServerLocation url={ctx.url}>
-        <MuiThemeProvider theme={theme}>
-          <CookiesProvider cookies={ctx.universalCookies}>
-            <ApolloProvider client={client}>
-              <PropProvider ctx={ctx} sessionProps={sessionProps} props={{}}>
-                <HeadProvider tags={head} hashes={hashes}>
-                  <App />
-                </HeadProvider>
-              </PropProvider>
-            </ApolloProvider>
-          </CookiesProvider>
-        </MuiThemeProvider>
-      </ServerLocation>
-    );
-    // Pre-render to get Modules and shit
-    await getDataFromTree(
-      <ServerLocation url={ctx.url}>
         <Capture report={moduleName => modules.push(moduleName)}>
           <MuiThemeProvider theme={theme}>
             <CookiesProvider cookies={ctx.universalCookies}>
@@ -89,6 +73,22 @@ export const uiServer = async (ctx: Context, config: Config) => {
             </CookiesProvider>
           </MuiThemeProvider>
         </Capture>
+      </ServerLocation>
+    );
+    // Pre-render to get Modules and shit
+    await getDataFromTree(
+      <ServerLocation url={ctx.url}>
+        <MuiThemeProvider theme={theme}>
+          <CookiesProvider cookies={ctx.universalCookies}>
+            <ApolloProvider client={client}>
+              <PropProvider ctx={ctx} sessionProps={sessionProps} props={{}}>
+                <HeadProvider tags={head} hashes={hashes}>
+                  <App />
+                </HeadProvider>
+              </PropProvider>
+            </ApolloProvider>
+          </CookiesProvider>
+        </MuiThemeProvider>
       </ServerLocation>
     );
     localProps = (await Props) || {};

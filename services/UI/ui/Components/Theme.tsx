@@ -17,5 +17,12 @@ export const theme = createMuiTheme({
     background: {
       default: '#111111'
     }
+  },
+  overrides: {
+    MuiPaper: {
+      rounded: {
+        borderRadius: '1em'
+      }
+    }
   }
 });
