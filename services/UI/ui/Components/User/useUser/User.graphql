@@ -1,0 +1,7 @@
+# import "ui/lib/GraphQL/User.graphql"
+
+query User($id: String!) {
+  User(id: $id) {
+    ...User
+  }
+}

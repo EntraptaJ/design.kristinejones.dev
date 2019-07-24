@@ -20,6 +20,13 @@ export default class AuthResolver {
     else return true;
   }
 
+  @Query(returns => User)
+  public async User(@Arg('id') userID: string) {
+    const User = await UserModel.findOne({ _id: userID });
+    if (!User) throw new ApolloError('User not found', 'INVALID_USER');
+    else return User;
+  }
+
   @Query(returns => [User])
   public async users(@Arg('username', { nullable: true, defaultValue: '' }) username?: string) {
     const Users = await UserModel.find();

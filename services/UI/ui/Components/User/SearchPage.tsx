@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { Box } from 'ui/Components/Styles/Box';
 import { FieldStyle } from 'ui/lib/Styles';
 import Typography from '@material-ui/core/Typography';
+import { Link } from '@reach/router';
 
 interface SearchPageProps {}
 
@@ -26,7 +27,13 @@ export const UserSearchPage: SearchPageType = () => {
       />
       {!Users.loading ? (
         !Users.error ? (
-          <List>{Users.Users.map(({ username, _id }) => <ListItem key={_id} button style={{ width: '100%' }}><Typography variant='body1'>{username}</Typography></ListItem>)}</List>
+          <List>
+            {Users.Users.map(({ username, _id }) => (
+              <ListItem component={Link} {...{ to: `/Users/${_id}` }} key={_id} button style={{ width: '100%' }}>
+                <Typography variant='body1'>{username}</Typography>
+              </ListItem>
+            ))}
+          </List>
         ) : (
           <></>
         )

@@ -103,7 +103,20 @@ export const AppRoutes: NavItem[] = [
     Loadable: MyLoadable({
       loader: () => import('ui/routes/Users'),
       modules: ['routes/Users/index.tsx'],
-    })
+    }),
+    children: [
+      {
+        path: '/:id',
+        to: '/Users/',
+        label: 'User Profile',
+        authMode: true,
+        hidden: true,
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/Users/User'),
+          modules: ['routes/Users/User.tsx'],
+        }),
+      },
+    ]
   },
   {
     path: '/Designs',
@@ -122,7 +135,8 @@ export const AppRoutes: NavItem[] = [
           loader: () => import('ui/routes/DesignExamples/Buttons'),
           modules: ['routes/DesignExamples/Buttons.tsx'],
         }),
-      }
+      },
+
     ]
   }
 ];
