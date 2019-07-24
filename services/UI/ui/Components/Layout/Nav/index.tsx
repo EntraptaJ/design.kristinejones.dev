@@ -52,8 +52,8 @@ type NavMenuItemType = FunctionComponent<NavMenuItemProps>;
 
 export type NavType = FunctionComponent;
 
-const ParentListItem: FunctionComponent<{ label: string }> = ({ label, children }) => {
-  const [open, setOpen] = useState<boolean>(false);
+const ParentListItem: FunctionComponent<{ label: string, startOpen?: boolean }> = ({ label, children, startOpen }) => {
+  const [open, setOpen] = useState<boolean>(startOpen ? true : false);
   const classes = useListStyles();
 
   const handleClick = () => setOpen(!open);
@@ -103,7 +103,7 @@ const Nav: NavType = props => {
         <Fragment key={route.to}></Fragment>
       ) : route.children ? (
         typeof authMode === 'undefined' || authMode === isAuthed ? (
-          <ParentListItem label={route.label} key={route.to}>
+          <ParentListItem startOpen={route.children.some((croute) => croute.to === Location.pathname) || route.to === Location.pathname} label={route.label} key={route.to}>
             <NavMenuItem selected={route.to === Location.pathname} {...route} /> {handleNavItems(route.children)}
           </ParentListItem>
         ) : (
