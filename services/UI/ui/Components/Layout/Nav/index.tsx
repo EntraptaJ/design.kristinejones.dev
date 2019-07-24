@@ -81,6 +81,8 @@ const NavMenuItem: NavMenuItemType = ({ label, to, Loadable, ...props }) => {
   );
 };
 
+const startOpen = (route: NavItem, path: string): boolean => route.to === path ? true : route.children ? route.children.some((child) => startOpen(child, path)) : false 
+
 const Nav: NavType = props => {
   const Location = useLocation();
   const { isAuthed } = useSession();
@@ -103,14 +105,14 @@ const Nav: NavType = props => {
         <Fragment key={route.to}></Fragment>
       ) : route.children ? (
         typeof authMode === 'undefined' || authMode === isAuthed ? (
-          <ParentListItem startOpen={route.children.some((croute) => croute.to === Location.pathname) || route.to === Location.pathname} label={route.label} key={route.to}>
+          <ParentListItem startOpen={startOpen(route, Location.pathname)} label={route.label} key={route.to}>
             <NavMenuItem selected={route.to === Location.pathname} {...route} /> {handleNavItems(route.children)}
           </ParentListItem>
         ) : (
           <></>
         )
       ) : typeof authMode === 'undefined' || authMode === isAuthed ? (
-        <NavMenuItem selected={route.to === Location.pathname} key={route.to} {...route} />
+        <NavMenuItem selected={startOpen(route, Location.pathname)} key={route.to} {...route} />
       ) : (
         <Fragment key={route.path}></Fragment>
       )

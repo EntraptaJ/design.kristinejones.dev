@@ -11,7 +11,7 @@ const HandleRoutes = (routes: NavItem[], parent: string = '/'): ReactNode[] => {
     if (Route.children)
       Routes = [
         ...Routes,
-        <Route.Loadable key={Route.path} path={Route.path} />,
+        <Route.Loadable key={Route.path} path={`${parent}${Route.path}`} />,
         HandleRoutes(Route.children, `${parent}${Route.path}`)
       ];
     else Routes = [...Routes, <Route.Loadable key={Route.path} path={`${parent}${Route.path}`} />];
