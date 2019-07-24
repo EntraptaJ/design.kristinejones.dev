@@ -17,7 +17,7 @@ export const FormDialog: FormDialogType = ({ title, body, open, children, onActi
       body={body}
       actions={[
         <BaseButton onClick={onAction('cancel')} mainColor='red' label='Cancel' />,
-        <BaseButton onClick={onAction('cancel')} mainColor='green' label='Submit' />
+        <BaseButton onClick={onAction('submit')} mainColor='green' label='Submit' />
       ]}
       {...props}
     >
