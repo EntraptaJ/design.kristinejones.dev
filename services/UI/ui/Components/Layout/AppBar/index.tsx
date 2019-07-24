@@ -31,7 +31,6 @@ const AppBar: AppBarType = ({ appName }) => {
 
   const onMenuItem = (option: string) => () => {
     if (option === 'Logout') logoutFN()
-    console.log(option);
     handleClose();
   };
 
@@ -79,7 +78,6 @@ const AppBar: AppBarType = ({ appName }) => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={onMenuItem('Profile')}>Profile</MenuItem>
                 <MenuItem onClick={onMenuItem('Logout')}>Logout</MenuItem>
               </Menu>
             </div>

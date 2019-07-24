@@ -13,7 +13,7 @@ export async function build(watch: boolean = false) {
   await copy('package.json', 'dist/package.json');
   await copy('package-lock.json', 'dist/package-lock.json');
 
-  const fragmentJSON = await generateFragment('https://projects.kristianjones.dev');
+  const fragmentJSON = await generateFragment('https://design.kristianjones.dev');
   await writeJSON('ui/fragmentTypes.json', fragmentJSON);
 
   const bundler = new ParcelBundler('ui/client.urls', {

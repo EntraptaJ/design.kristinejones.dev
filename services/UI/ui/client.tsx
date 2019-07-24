@@ -27,15 +27,15 @@ const Main = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CookiesProvider>
-        <ApolloProvider state={window.APP_STATE.APOLLO_STATE}>
-          <HeadProvider tags={[]} hashes={hashes}>
-            <ConfigProvider {...window.APP_STATE.CONFIG}>
+        <ConfigProvider {...window.APP_STATE.CONFIG}>
+          <ApolloProvider state={window.APP_STATE.APOLLO_STATE}>
+            <HeadProvider tags={[]} hashes={hashes}>
               <PropProvider sessionProps={window.APP_STATE.SESSION_PROPS} props={window.APP_STATE.PROPS}>
                 <AppComponent />
               </PropProvider>
-            </ConfigProvider>
-          </HeadProvider>
-        </ApolloProvider>
+            </HeadProvider>
+          </ApolloProvider>
+        </ConfigProvider>
       </CookiesProvider>
     </MuiThemeProvider>
   );
