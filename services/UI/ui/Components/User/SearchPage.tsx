@@ -1,17 +1,21 @@
 // UI/ui/Components/User/SearchPage.tsx
 import React, { FunctionComponent, useState } from 'react';
-import { useUsers } from './useUser';
+import { useUsers, User, useUserAvatar } from './useUser';
 import List from '@material-ui/core/List';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 import { Box } from 'ui/Components/Styles/Box';
 import { FieldStyle } from 'ui/lib/Styles';
-import Typography from '@material-ui/core/Typography';
-import { Link } from '@reach/router';
+import { AvatarListItem } from '../Layout/Lists/ListItems/AvatarListItem';
 
 interface SearchPageProps {}
 
 type SearchPageType = FunctionComponent<SearchPageProps>;
+
+const UserListItem: FunctionComponent<User> = ({ email, username, _id }) => {
+  const avatarSRC = useUserAvatar(email);
+
+  return <AvatarListItem link to={`/Users/${_id}`} src={avatarSRC} label={username} />;
+};
 
 export const UserSearchPage: SearchPageType = () => {
   const [filter, setFilter] = useState<string>();
@@ -27,10 +31,8 @@ export const UserSearchPage: SearchPageType = () => {
       />
       {Users.Users ? (
         <List>
-          {Users.Users.map(({ username, _id }) => (
-            <ListItem component={Link} {...{ to: `/Users/${_id}` }} key={_id} button style={{ width: '100%' }}>
-              <Typography variant='body1'>{username}</Typography>
-            </ListItem>
+          {Users.Users.map(user => (
+            <UserListItem key={user._id} {...user} />
           ))}
         </List>
       ) : Users.error ? (

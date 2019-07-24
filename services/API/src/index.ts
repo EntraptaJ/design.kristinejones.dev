@@ -48,7 +48,7 @@ const startWeb = async () => {
 const startAPI = async () => {
   console.log('Starting API Hello');
   await mongoose.connect(
-    'mongodb://localhost:27017/design',
+    `mongodb://${process.env['DB_HOST']}:27017/design`,
     { useNewUrlParser: true, useCreateIndex: true }
   );
 

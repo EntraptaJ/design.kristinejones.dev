@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Arg, Authorized, Ctx, ObjectType, Field } from 'type-graphql';
 import { ApolloError } from 'apollo-server-koa';
-import { UserModel, User } from '../../Models/User';
+import { UserModel, User, NewUserInput } from '../../Models/User';
 import { Context } from '../Context';
 import { MutationResponse } from '../Mutations';
 
@@ -20,6 +20,12 @@ export default class AuthResolver {
     else return true;
   }
 
+  @Query(returns => String)
+  @Authorized()
+  public async getSecret(@Arg('password') plainText: string, @Ctx() { user }: Context ) {
+    return user.decryptSecret(plainText)
+  }
+
   @Query(returns => User)
   public async User(@Arg('id') userID: string) {
     const User = await UserModel.findOne({ _id: userID });
@@ -34,8 +40,10 @@ export default class AuthResolver {
   }
 
   @Mutation(returns => User)
-  public async registerUser(@Arg('username') username: string, @Arg('password') password: string): Promise<User> {
-    const User = await UserModel.create({ username, password });
+  public async registerUser(@Arg('user', type => NewUserInput) user: NewUserInput): Promise<User> {
+    const userExists = await UserModel.findOne({ username: user.username });
+    if (userExists) throw new ApolloError('User already exists', 'USER_EXISTS');
+    const User = await UserModel.create({ ...user });
     return User;
   }
 

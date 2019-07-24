@@ -19,10 +19,12 @@ export const ConfirmDialog: ConfirmDialogType = ({ onSelection, progress, ...pro
   return (
     <BaseDialog
       {...props}
-      actions={[
-        <ProgressButton loading={isLoading('cancel')} onClick={onSelection('cancel')} mainColor='red' label='Cancel' />,
-        <ProgressButton loading={isLoading('confirm')} onClick={onSelection('confirm')} mainColor='green' label='Submit' />
-      ]}
-    ></BaseDialog>
+      actions={
+        <>
+          <ProgressButton loading={isLoading('cancel')} onClick={onSelection('cancel')} mainColor='red' label='Cancel' />,
+          <ProgressButton loading={isLoading('confirm')} onClick={onSelection('confirm')} mainColor='green' label='Submit' />
+        </>
+      }
+    />
   );
 };

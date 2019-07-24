@@ -17,6 +17,7 @@
   "author": "Kristian Jones <me@kristianjones.xyz>",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/fs-extra": "^8.0.0",
     "@types/jest": "^24.0.15",
     "@types/klaw": "^3.0.0",

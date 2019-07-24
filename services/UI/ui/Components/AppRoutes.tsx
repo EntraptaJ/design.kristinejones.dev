@@ -115,6 +115,16 @@ export const AppRoutes: NavItem[] = [
           loader: () => import('ui/routes/Users/User'),
           modules: ['routes/Users/User.tsx']
         })
+      },
+      {
+        path: '/Secret',
+        to: '/Users/Secret',
+        label: 'User Secret',
+        authMode: true,
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/Users/Secret'),
+          modules: ['routes/Users/Secret.tsx']
+        })
       }
     ]
   },

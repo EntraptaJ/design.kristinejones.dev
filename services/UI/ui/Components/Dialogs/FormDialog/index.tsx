@@ -15,10 +15,12 @@ export const FormDialog: FormDialogType = ({ title, body, open, children, onActi
       open={open}
       title={title}
       body={body}
-      actions={[
-        <BaseButton onClick={onAction('cancel')} mainColor='red' label='Cancel' />,
-        <BaseButton onClick={onAction('submit')} mainColor='green' label='Submit' />
-      ]}
+      actions={
+        <>
+          <BaseButton onClick={onAction('cancel')} mainColor='red' label='Cancel' />,
+          <BaseButton onClick={onAction('submit')} mainColor='green' label='Submit' />
+        </>
+      }
       {...props}
     >
       {children}

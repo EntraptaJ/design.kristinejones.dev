@@ -2,10 +2,13 @@
 import { useQuery, QueryHookOptions } from '@apollo/react-hooks';
 import USERS_GQL from 'ui/lib/GraphQL/Users.graphql';
 import USER_GQL from './User.graphql';
+import md5 from 'blueimp-md5';
 
-interface User {
+export interface User {
   username: string;
   _id: string;
+  email: string;
+  fullName: string;
 }
 
 interface LoadingResponse {
@@ -70,3 +73,7 @@ export const useUser: UseUser = userID => {
   if (!data && loading) return { loading: true, error: false, User: undefined };
   return { loading: false, error: true, User: undefined };
 };
+
+export const useUserAvatar = (email: string): string => {
+  return `https://www.gravatar.com/avatar/${md5(email)}?d=retro`
+} 

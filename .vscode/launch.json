@@ -11,7 +11,10 @@
                 "run", "dev:debug"
             ],
             "restart": true,
-            "port": 1234
+            "port": 1234,
+            "env": {
+                "DB_HOST": "localhost"
+            }
         },
         {
             "name": "Launch UI and Debug",

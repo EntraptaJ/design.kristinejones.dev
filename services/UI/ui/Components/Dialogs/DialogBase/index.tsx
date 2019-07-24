@@ -7,13 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
 interface CoreDialogProps {
-  actions?: React.ReactNode[];
-}
-
-interface ClosedBaseDialogProps extends CoreDialogProps {
-  open: false;
-  title?: string;
-  body?: string;
+  actions?: React.ReactNode;
 }
 
 interface OpenBaseDialogProps extends CoreDialogProps {
@@ -26,7 +20,7 @@ export type BaseDialogProps = OpenBaseDialogProps & DialogProps;
 
 type BaseDialogType = FunctionComponent<BaseDialogProps>;
 
-export const BaseDialog: BaseDialogType = ({ title, body, open, actions = [], children, ...props }) => {
+export const BaseDialog: BaseDialogType = ({ title, body, open, actions, children, ...props }) => {
   return (
     <Dialog open={open} {...props}>
       <DialogTitle>{title}</DialogTitle>
@@ -34,7 +28,7 @@ export const BaseDialog: BaseDialogType = ({ title, body, open, actions = [], ch
         <DialogContentText>{body}</DialogContentText>
         {children}
       </DialogContent>
-      <DialogActions>{...actions}</DialogActions>
+      <DialogActions>{actions}</DialogActions>
     </Dialog>
   );
 };
