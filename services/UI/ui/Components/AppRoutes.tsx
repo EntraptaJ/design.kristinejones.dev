@@ -144,6 +144,15 @@ export const AppRoutes: NavItem[] = [
           loader: () => import('ui/routes/DesignExamples/Breadcrumbs'),
           modules: ['routes/DesignExamples/Breadcrumbs.tsx']
         })
+      },
+      {
+        path: '/Dialogs',
+        to: '/Designs/Dialogs',
+        label: 'Dialogs',
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/DesignExamples/Dialogs'),
+          modules: ['routes/DesignExamples/Dialogs.tsx']
+        })
       }
     ]
   }

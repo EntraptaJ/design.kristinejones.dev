@@ -1,32 +1,27 @@
 // UI/ui/Components/Dialogs/FormDialog/index.tsx
 import React, { FunctionComponent } from 'react';
-import Dialog, { DialogProps } from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import { BaseButton } from 'ui/Components/Forms/Button/BaseButton';
+import { BaseDialog, BaseDialogProps } from 'ui/Components/Dialogs/DialogBase';
 
-interface FormDialogProps extends DialogProps {
-  title: string;
-  body: string;
+interface FormDialogProps extends BaseDialogProps {
   onAction: (action: 'cancel' | 'submit') => () => any;
 }
 
 type FormDialogType = FunctionComponent<FormDialogProps>;
 
-export const FormDialog: FormDialogType = ({ title, body, open, onClose, children, onAction }) => {
+export const FormDialog: FormDialogType = ({ title, body, open, children, onAction, ...props }) => {
   return (
-    <Dialog open={open} onClose={onClose} aria-labelledby='form-dialog-title'>
-      <DialogTitle id='form-dialog-title'>{title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText>{body}</DialogContentText>
-        {children}
-      </DialogContent>
-      <DialogActions>
-        <BaseButton onClick={onAction('cancel')} mainColor='red' label='Cancel' />
+    <BaseDialog
+      open={open}
+      title={title}
+      body={body}
+      actions={[
+        <BaseButton onClick={onAction('cancel')} mainColor='red' label='Cancel' />,
         <BaseButton onClick={onAction('cancel')} mainColor='green' label='Submit' />
-      </DialogActions>
-    </Dialog>
+      ]}
+      {...props}
+    >
+      {children}
+    </BaseDialog>
   );
 };
