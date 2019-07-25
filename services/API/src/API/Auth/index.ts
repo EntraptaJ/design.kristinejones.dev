@@ -20,7 +20,7 @@ export default class AuthResolver {
     else return true;
   }
 
-  @Query(returns => String)
+  @Query(returns => String, { description: 'Decrypts the Users secret' })
   @Authorized()
   public async getSecret(@Arg('password') plainText: string, @Ctx() { user }: Context ) {
     return user.decryptSecret(plainText)

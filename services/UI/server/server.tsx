@@ -19,6 +19,7 @@ import { MuiThemeProvider } from '@material-ui/core';
 import { theme } from 'ui/Components/Theme';
 import { CookiesProvider } from 'react-cookie';
 import { ApolloProvider } from 'ui/lib/ApolloProvider';
+import { SessionProvider } from 'ui/Components/SessionProvider';
 
 export interface AppState {
   PROPS: any;
@@ -66,7 +67,9 @@ export const uiServer = async (ctx: Context, config: Config) => {
               <ApolloProvider client={client}>
                 <PropProvider ctx={ctx} sessionProps={sessionProps} props={{}}>
                   <HeadProvider tags={head} hashes={hashes}>
-                    <App />
+                    <SessionProvider>
+                      <App />
+                    </SessionProvider>
                   </HeadProvider>
                 </PropProvider>
               </ApolloProvider>
@@ -83,7 +86,9 @@ export const uiServer = async (ctx: Context, config: Config) => {
             <ApolloProvider client={client}>
               <PropProvider ctx={ctx} sessionProps={sessionProps} props={{}}>
                 <HeadProvider tags={head} hashes={hashes}>
-                  <App />
+                  <SessionProvider>
+                    <App />
+                  </SessionProvider>
                 </HeadProvider>
               </PropProvider>
             </ApolloProvider>
@@ -117,7 +122,9 @@ export const uiServer = async (ctx: Context, config: Config) => {
           <ApolloProvider client={client}>
             <PropProvider ctx={ctx} sessionProps={sessionProps} props={localProps}>
               <HeadProvider tags={head} hashes={hashes}>
-                <App />
+                <SessionProvider>
+                  <App />
+                </SessionProvider>
               </HeadProvider>
             </PropProvider>
           </ApolloProvider>
@@ -128,8 +135,8 @@ export const uiServer = async (ctx: Context, config: Config) => {
 
   const portals = new ServerPortal();
   const element = portals.collectPortals(MainApp);
-  const testElem = renderToString(sheets.collect(element));
-  const test = portals.appendUniversalPortals(testElem);
+  const test = renderToString(sheets.collect(element));
+  // const test = portals.appendUniversalPortals(testElem);
 
   const componentStream = renderToNodeStream(<></>);
 
@@ -178,6 +185,7 @@ export const uiServer = async (ctx: Context, config: Config) => {
 
   const Head = renderToString(
     <head>
+      <meta charSet='UTF-8' />
       <link rel='manifest' href='/manifest.json' />
       <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport' />
       {...head}

@@ -1,0 +1,6 @@
+{
+  users {
+    name: username
+   	id: _id 
+  }
+}

@@ -28,7 +28,7 @@ export const Slider: SliderType = ({ title, children }) => {
         </div>
 
         <Collapse in={open} style={{}}>
-          <div style={{ padding: '8px 24px 24px' }}>
+          <div style={{ paddingTop: '1rem', display: 'flex', flexDirection: 'column' }}>
             {children}
           </div>
         </Collapse>

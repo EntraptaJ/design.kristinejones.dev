@@ -39,16 +39,12 @@ export const RegisterForm: RegisterFormType = () => {
       title='Register'
       onSubmit={onSubmit}
       Fields={[
-        { label: 'Full Name', name: 'fullName', type: 'Text', inputType: 'text' },
+        { label: 'Full Name', name: 'fullName', type: 'Text', autoComplete: 'name', inputType: 'text' },
         { label: 'Username', name: 'username', type: 'Text', inputType: 'text' },
         { label: 'Secret', name: 'secret', type: 'Text', inputType: 'text' },
-        { label: 'Email', name: 'email', type: 'Text', inputType: 'email' },
-        { label: 'Password', name: 'password', type: 'Text', inputType: 'password' }
+        { label: 'Email', name: 'email', type: 'Text', autoComplete: 'email', inputType: 'email' },
+        { label: 'Password', name: 'password', type: 'Text', autoComplete: 'new-password', inputType: 'password' }
       ]}
-    >
-      <Button color='primary' variant='contained' style={FieldStyle} type='submit'>
-        Register
-      </Button>
-    </Form>
+    />
   );
 };

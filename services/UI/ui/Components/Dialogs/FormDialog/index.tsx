@@ -15,6 +15,11 @@ export const FormDialog: FormDialogType = ({ title, body, open, children, onActi
       open={open}
       title={title}
       body={body}
+      PaperProps={{
+        style: {
+          maxWidth: '325px'
+        }
+      }}
       actions={
         <>
           <BaseButton onClick={onAction('cancel')} mainColor='red' label='Cancel' />,

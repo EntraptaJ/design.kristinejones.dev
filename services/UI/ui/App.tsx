@@ -1,10 +1,13 @@
 // UI/ui/App.tsx
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { Routes } from 'ui/routes';
 import Loadable from 'react-loadable';
 import { Loading } from './Components/LoadingComponent';
 import { NavContext, useNavContext } from 'ui/Components/Layout/Nav/useNav';
-import { SessionProvider } from 'ui/Components/SessionProvider';
+import { SessionProvider, useSession } from 'ui/Components/SessionProvider';
+import { useLocation } from 'ui/Components/Layout/useLocation';
+import { AppRoutes, NavItem } from './Components/AppRoutes';
+import { Redirect } from '@reach/router';
 
 type AppType = FunctionComponent;
 
@@ -20,19 +23,36 @@ const Nav = Loadable({
   loading: Loading
 });
 
-const App: AppType = () => {
+const findRoute = (routes: NavItem[], path: string): NavItem | undefined => {
+  for (const route of routes) {
+    if (route.to === path) return route;
+    else if (route.children) return findRoute(route.children, path);
+  }
+};
+
+const MainBody: FunctionComponent = () => {
+  const Location = useLocation();
+  const { isAuthed } = useSession();
+  const route = useMemo(() => findRoute(AppRoutes, Location.pathname), [Location.pathname]);
   const navContext = useNavContext(false);
+  const isAuthorized = !route || typeof route.authMode === 'undefined' || route.authMode === isAuthed;
 
   return (
-    <SessionProvider>
+    <NavContext.Provider value={navContext}>
+      <div className='main-content' style={{ display: 'flex', flex: '1 1', position: 'relative' }}>
+        <Nav />
+        {isAuthorized ? <Routes /> : <Redirect to={!isAuthed ? '/Login' : '/'} />}
+      </div>
+    </NavContext.Provider>
+  );
+};
+
+const App: AppType = () => {
+  return (
+    <>
       <AppBar appName={`Kristian's Design`} />
-      <NavContext.Provider value={navContext}>
-        <div className='main-content' style={{ display: 'flex', flex: '1 1', position: 'relative' }}>
-          <Nav />
-          <Routes />
-        </div>
-      </NavContext.Provider>
-    </SessionProvider>
+      <MainBody />
+    </>
   );
 };
 

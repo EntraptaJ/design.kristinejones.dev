@@ -11,6 +11,7 @@ import { globalHistory } from '@reach/router';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { theme } from 'ui/Components/Theme';
 import { CookiesProvider } from 'react-cookie';
+import { SessionProvider } from './Components/SessionProvider';
 
 const timeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -24,6 +25,13 @@ if ('serviceWorker' in navigator) {
 }
 
 const Main = () => {
+  React.useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
     <MuiThemeProvider theme={theme}>
       <CookiesProvider>
@@ -31,7 +39,9 @@ const Main = () => {
           <ApolloProvider state={window.APP_STATE.APOLLO_STATE}>
             <HeadProvider tags={[]} hashes={hashes}>
               <PropProvider sessionProps={window.APP_STATE.SESSION_PROPS} props={window.APP_STATE.PROPS}>
-                <AppComponent />
+                <SessionProvider>
+                  <AppComponent />
+                </SessionProvider>
               </PropProvider>
             </HeadProvider>
           </ApolloProvider>

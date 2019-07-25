@@ -24,6 +24,7 @@
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/lab": "^4.0.0-alpha.20",
+    "@playlyfe/gql": "^2.6.1",
     "@reach/router": "^1.2.1",
     "@rmwc/button": "^5.5.2",
     "@rmwc/circular-progress": "^5.5.2",

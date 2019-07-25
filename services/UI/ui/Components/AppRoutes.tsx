@@ -8,9 +8,7 @@ export const MyLoadable = (opts: Omit<OptionsWithoutRender<unknown>, 'loading' |
   Load(
     Object.assign(
       {
-        loading: Loading,
-        delay: 200,
-        timeout: 10000
+        loading: Loading
       },
       opts
     )
@@ -165,12 +163,30 @@ export const AppRoutes: NavItem[] = [
         })
       },
       {
+        path: '/Forms',
+        to: '/Designs/Forms',
+        label: 'Forms',
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/DesignExamples/Form'),
+          modules: ['routes/DesignExamples/Form.tsx']
+        })
+      },
+      {
         path: '/Lists',
         to: '/Designs/Lists',
         label: 'Lists',
         Loadable: MyLoadable({
           loader: () => import('ui/routes/DesignExamples/Lists'),
           modules: ['routes/DesignExamples/Lists.tsx']
+        })
+      },
+      {
+        path: '/Select',
+        to: '/Designs/Select',
+        label: 'Selects',
+        Loadable: MyLoadable({
+          loader: () => import('ui/routes/DesignExamples/Select'),
+          modules: ['routes/DesignExamples/Select.tsx']
         })
       }
     ]

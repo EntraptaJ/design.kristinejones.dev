@@ -1,19 +1,39 @@
 // UI/ui/Components/Styles/Form.tsx
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, FunctionComponent } from 'react';
 import { useStyles, FieldStyle } from 'ui/lib/Styles';
 import { Box } from 'ui/Components/Styles/Box';
 import useForm from 'react-hook-form';
 import { RegisterInput } from 'react-hook-form/dist/types';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import { BaseButton } from 'ui/Components/Forms/Button/BaseButton';
 
-type FieldTypes = 'Text';
+export type FieldTypes = 'Text' | 'Select';
+
+export enum HTMLInputTypesENUM {
+  'color' = 'color',
+  'date' = 'date',
+  'datetime-local' = 'datetime-local',
+  'email' = 'email',
+  'file' = 'file',
+  'hidden' = 'hidden',
+  'image' = 'image',
+  'month' = 'month',
+  'number' = 'number',
+  'password' = 'password',
+  'search' = 'search',
+  'tel' = 'tel',
+  'text' = 'text',
+  'time' = 'time',
+  'url' = 'url',
+  'week' = 'week'
+}
 
 /**
  * Taken from https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types
  */
-type HTMLInputTypes =
+export type HTMLInputTypes =
   | 'color'
   | 'date'
   | 'datetime-local'
@@ -29,14 +49,17 @@ type HTMLInputTypes =
   | 'text'
   | 'time'
   | 'url'
-  | 'week';
+  | 'week'
+  | HTMLInputTypesENUM;
+
+
 
 //type HTMLInputTypes = 'email' | 'username' | 'password' | 'date' | 'text';
 
 /**
  * Taken from https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#Values
  */
-type HTMLAUTOCOMPLETETYPES =
+export type HTMLAUTOCOMPLETETYPES =
   | 'off'
   | 'on'
   | 'name'
@@ -91,7 +114,7 @@ interface Invalid {
   Text?: string;
 }
 
-interface Field {
+export interface Field {
   type: FieldTypes;
   name: string;
   label: string;
@@ -105,6 +128,7 @@ interface FormProps<FormData> {
   Fields: Field[];
   invalid?: Invalid;
   submitLabel?: string;
+  noSubmit?: boolean
   onSubmit: (data: FormData) => any;
 }
 
@@ -112,6 +136,7 @@ export const Form = <T extends {}>({
   title,
   children,
   onSubmit,
+  noSubmit = false,
   Fields,
   invalid = { Field: '', Text: undefined },
   submitLabel = title
@@ -141,9 +166,7 @@ export const Form = <T extends {}>({
         />
       ))}
       {children}
-      <Button color='primary' variant='contained' style={FieldStyle} type='submit'>
-        {submitLabel}
-      </Button>
+      {!noSubmit && <BaseButton color='primary' fullWidth variant='contained' submit label={submitLabel} /> }
     </Box>
   );
 };

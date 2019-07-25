@@ -1,7 +1,7 @@
 // UI/ui/Components/Layout/Nav/index.tsx
 import { UniversalPortal } from '@jesstelford/react-portal-universal';
 import Collapse from '@material-ui/core/Collapse';
-import Drawer from '@material-ui/core/Drawer';
+import Drawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -52,7 +52,7 @@ type NavMenuItemType = FunctionComponent<NavMenuItemProps>;
 
 export type NavType = FunctionComponent;
 
-const ParentListItem: FunctionComponent<{ label: string, startOpen?: boolean }> = ({ label, children, startOpen }) => {
+const ParentListItem: FunctionComponent<{ label: string; startOpen?: boolean }> = ({ label, children, startOpen }) => {
   const [open, setOpen] = useState<boolean>(startOpen ? true : false);
   const classes = useListStyles();
 
@@ -81,7 +81,8 @@ const NavMenuItem: NavMenuItemType = ({ label, to, Loadable, ...props }) => {
   );
 };
 
-const startOpen = (route: NavItem, path: string): boolean => route.to === path ? true : route.children ? route.children.some((child) => startOpen(child, path)) : false 
+const startOpen = (route: NavItem, path: string): boolean =>
+  route.to === path ? true : route.children ? route.children.some(child => startOpen(child, path)) : false;
 
 const Nav: NavType = props => {
   const Location = useLocation();
@@ -105,11 +106,11 @@ const Nav: NavType = props => {
         <Fragment key={route.to}></Fragment>
       ) : route.children ? (
         typeof authMode === 'undefined' || authMode === isAuthed ? (
-          <ParentListItem startOpen={startOpen(route, Location.pathname)} label={route.label} key={route.to}>
+          <ParentListItem key={route.to} startOpen={startOpen(route, Location.pathname)} label={route.label} key={route.to}>
             <NavMenuItem selected={route.to === Location.pathname} {...route} /> {handleNavItems(route.children)}
           </ParentListItem>
         ) : (
-          <></>
+          <Fragment key={route.to}></Fragment>
         )
       ) : typeof authMode === 'undefined' || authMode === isAuthed ? (
         <NavMenuItem selected={startOpen(route, Location.pathname)} key={route.to} {...route} />
@@ -126,6 +127,7 @@ const Nav: NavType = props => {
         variant={isMobileState ? 'temporary' : 'persistent'}
         onClose={closeNav}
         open={navOpen}
+        onOpen={() => toggleNav()}
         classes={{
           paper: classes.drawerPaper
         }}

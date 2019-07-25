@@ -12,17 +12,17 @@ export interface User {
 }
 
 interface LoadingResponse {
-  loading: true;
+  loading: boolean;
   error: false;
 }
 
 interface ValidResponse {
-  loading: false;
+  loading: boolean;
   error: false;
 }
 
 interface InvalidResponse {
-  loading: false;
+  loading: boolean;
   error: true;
 }
 
@@ -69,9 +69,9 @@ type UseUser = (userID: string) => UserValidResponse | UserLoadingResponse | Use
 export const useUser: UseUser = userID => {
   const opts: QueryHookOptions<{ User: User }, { id: string }> = { variables: { id: userID } };
   const { data, loading, error } = useQuery<{ User: User }, { id: string }>(USER_GQL, opts);
-  if (data && data.User) return { loading: false, error: false, User: data.User };
-  if (!data && loading) return { loading: true, error: false, User: undefined };
-  return { loading: false, error: true, User: undefined };
+  if (data) return { loading, User: data.User, error: false  }
+  else if (!loading && error && !data) return { loading, error: true, User: undefined }
+  return { loading: false, error: true, User: undefined }
 };
 
 export const useUserAvatar = (email: string): string => {

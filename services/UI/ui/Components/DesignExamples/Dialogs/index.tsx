@@ -4,6 +4,8 @@ import { Box } from 'ui/Components/Styles/Box';
 import { Slider } from 'ui/Components/Layout/Slider';
 import { BaseButton } from 'ui/Components/Forms/Button/BaseButton';
 import { ConfirmDialog, ButtonTypes } from 'ui/Components/Dialogs/ConfirmDialog';
+import TextField from '@material-ui/core/TextField';
+import { ConfirmDialogDemo } from './ConfirmDialogDemo';
 
 type DialogsDesignExampleType = FunctionComponent;
 
@@ -39,9 +41,7 @@ export const DialogsDesignExample: DialogsDesignExampleType = () => {
   return (
     <>
       <Box title='Dialogs Demo'>
-        <Slider title='Confirmation Dialogs'>
-          <BaseButton label='Confirm Deletion' onClick={openDialog('confirmDeletion')} />
-        </Slider>
+        <ConfirmDialogDemo />
       </Box>
       <ConfirmDialog open={open} onClose={openDialog()} onSelection={onSelection} {...dialog} />
     </>

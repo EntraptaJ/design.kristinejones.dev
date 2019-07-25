@@ -14,7 +14,7 @@ const UserSecret: FunctionComponent<RouteComponentProps> = () => {
 
   return (
     <Box title='User Secret'>
-      {!data ? <PasswordEntry onPassword={onPassword} /> : <Typography variant='body1'>{data.getSecret}</Typography>}
+      {!data || !data.getSecret ? <PasswordEntry onPassword={onPassword} /> : <Typography variant='body1'>{data.getSecret}</Typography>}
     </Box>
   );
 };

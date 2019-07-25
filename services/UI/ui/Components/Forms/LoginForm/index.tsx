@@ -38,8 +38,8 @@ export const LoginForm: LoginFormType = () => {
       invalid={invalid}
       onSubmit={onSubmit}
       Fields={[
-        { label: 'Username', name: 'username', type: 'Text', inputType: 'text' },
-        { label: 'Password', name: 'password', type: 'Text', inputType: 'password' }
+        { label: 'Username', name: 'username', type: 'Text', inputType: 'text',  autoComplete: 'username' },
+        { label: 'Password', name: 'password', type: 'Text', inputType: 'password', autoComplete: 'current-password' }
       ]}
     />
   );
