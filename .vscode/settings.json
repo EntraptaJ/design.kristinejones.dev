@@ -6,6 +6,7 @@
     "inmemory",
     "on",
     "passthrough",
+    "swipeable",
     "unmount"
   ]
 }

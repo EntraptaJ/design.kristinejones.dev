@@ -25,7 +25,6 @@ function aesDecrypt(text, secKey) {
   return s + decipher.final('utf8');
 }
 
-
 function createSecretKey(size, keys) {
   // var keys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   var key = '';
@@ -83,7 +82,7 @@ export class User extends Typegoose {
   @instanceMethod
   async decryptSecret(this: User, plainText: string): Promise<string> {
     var secKey = createSecretKey(32, plainText);
-    return aesDecrypt(this.secret, secKey)
+    return aesDecrypt(this.secret, secKey);
   }
 }
 

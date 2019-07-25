@@ -17,8 +17,11 @@ export const Slider: SliderType = ({ title, children }) => {
 
   return (
     <>
-      <Paper square style={{ minWidth: '90%', padding: '1rem' }} >
-        <div onClick={() => setOpen(!open)} style={{ display: 'flex', flexDirection: 'row', alignContent: 'space-between', width: '100%' }}>
+      <Paper square style={{ width: '90%', padding: '1rem' }}>
+        <div
+          onClick={() => setOpen(!open)}
+          style={{ display: 'flex', flexDirection: 'row', alignContent: 'space-between', width: '100%' }}
+        >
           <Typography variant='body1' style={{ width: '100%' }}>
             {title}
           </Typography>
@@ -28,9 +31,7 @@ export const Slider: SliderType = ({ title, children }) => {
         </div>
 
         <Collapse in={open} style={{}}>
-          <div style={{ paddingTop: '1rem', display: 'flex', flexDirection: 'column' }}>
-            {children}
-          </div>
+          <div style={{ paddingTop: '1rem', display: 'flex', flexDirection: 'column' }}>{children}</div>
         </Collapse>
       </Paper>
     </>

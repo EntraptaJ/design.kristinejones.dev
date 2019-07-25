@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import React, { FunctionComponent, ReactNode } from 'react';
 import { AppRoutes, NavItem } from 'ui/Components/AppRoutes';
 import { useStyles } from 'ui/lib/Styles';
+import { useNav } from 'ui/Components/Layout/Nav/useNav';
 
 const HandleRoutes = (routes: NavItem[], parent: string = '/'): ReactNode[] => {
   let Routes: ReactNode[] = [];
@@ -23,9 +24,17 @@ type RoutesType = FunctionComponent;
 
 export const Routes: RoutesType = () => {
   const classes = useStyles();
+  const isMobileState = typeof window === 'undefined' ? true : window.matchMedia('(max-width: 640px)').matches;
+  const { navOpen } = useNav();
 
   return (
-    <Router className={clsx(classes.content)} id='app_content'>
+    <Router
+      className={clsx(classes.content, {
+        [classes.contentDesktop]: !navOpen && !isMobileState,
+        [classes.contentShiftDesktop]: navOpen && !isMobileState
+      })}
+      id='app_content'
+    >
       {HandleRoutes(AppRoutes)}
     </Router>
   );

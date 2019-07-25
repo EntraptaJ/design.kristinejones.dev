@@ -6,6 +6,7 @@ import { BaseList } from 'ui/Components/Layout/Lists/BaseList';
 import { BaseListItem } from 'ui/Components/Layout/Lists/ListItems/BaseListItem';
 import { LabelListItem } from 'ui/Components/Layout/Lists/ListItems/LabelListItem';
 import { LinkListItem } from 'ui/Components/Layout/Lists/ListItems/LinkListItem';
+import { MutationListExample } from './MutationList';
 
 type ListsDesignExampleType = FunctionComponent;
 
@@ -28,6 +29,7 @@ export const ListsDesignExample: ListsDesignExampleType = () => {
           <LinkListItem label='Users' to='/Users/' />
         </BaseList>
       </Slider>
+      <MutationListExample />
     </Box>
   );
 };

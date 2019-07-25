@@ -136,14 +136,35 @@ export const AppRoutes: NavItem[] = [
     }),
     children: [
       {
-        path: '/Buttons',
-        to: '/Designs/Buttons',
-        label: 'Buttons',
+        path: '/Inputs',
+        to: '/Designs/Inputs/',
+        label: 'Inputs',
         Loadable: MyLoadable({
-          loader: () => import('ui/routes/DesignExamples/Buttons'),
-          modules: ['routes/DesignExamples/Buttons.tsx']
-        })
+          loader: () => import('ui/routes/DesignExamples'),
+          modules: ['routes/DesignExamples/index.tsx']
+        }),
+        children: [
+          {
+            path: '/Buttons',
+            to: '/Designs/Inputs/Buttons',
+            label: 'Buttons',
+            Loadable: MyLoadable({
+              loader: () => import('ui/routes/DesignExamples/Buttons'),
+              modules: ['routes/DesignExamples/Buttons.tsx']
+            })
+          },
+          {
+            path: '/Select',
+            to: '/Designs/Inputs/Select',
+            label: 'Selects',
+            Loadable: MyLoadable({
+              loader: () => import('ui/routes/DesignExamples/Select'),
+              modules: ['routes/DesignExamples/Select.tsx']
+            })
+          }
+        ]
       },
+
       {
         path: '/Breadcrumb',
         to: '/Designs/Breadcrumb',
@@ -178,15 +199,6 @@ export const AppRoutes: NavItem[] = [
         Loadable: MyLoadable({
           loader: () => import('ui/routes/DesignExamples/Lists'),
           modules: ['routes/DesignExamples/Lists.tsx']
-        })
-      },
-      {
-        path: '/Select',
-        to: '/Designs/Select',
-        label: 'Selects',
-        Loadable: MyLoadable({
-          loader: () => import('ui/routes/DesignExamples/Select'),
-          modules: ['routes/DesignExamples/Select.tsx']
         })
       }
     ]

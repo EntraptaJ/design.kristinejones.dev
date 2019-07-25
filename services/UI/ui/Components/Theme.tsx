@@ -15,7 +15,7 @@ export const theme = createMuiTheme({
       dark: '#00b686'
     },
     background: {
-      default: '#111111'
+      default: '#eee'
     }
   },
   overrides: {

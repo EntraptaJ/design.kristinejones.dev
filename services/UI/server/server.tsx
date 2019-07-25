@@ -80,6 +80,7 @@ export const uiServer = async (ctx: Context, config: Config) => {
     );
     // Pre-render to get Modules and shit
     await getDataFromTree(
+      sheets.collect(
       <ServerLocation url={ctx.url}>
         <MuiThemeProvider theme={theme}>
           <CookiesProvider cookies={ctx.universalCookies}>
@@ -95,6 +96,7 @@ export const uiServer = async (ctx: Context, config: Config) => {
           </CookiesProvider>
         </MuiThemeProvider>
       </ServerLocation>
+      )
     );
     localProps = (await Props) || {};
     sessionProps = [{ path: ctx.path, props: (await Props) || {} }];
@@ -135,28 +137,17 @@ export const uiServer = async (ctx: Context, config: Config) => {
 
   const portals = new ServerPortal();
   const element = portals.collectPortals(MainApp);
-  const test = renderToString(sheets.collect(element));
   // const test = portals.appendUniversalPortals(testElem);
 
-  const componentStream = renderToNodeStream(<></>);
+  const componentStream = renderToNodeStream(MainApp);
 
   const mainCSS = `
   #app {
     display: flex;
     flex-direction: column;
   }
-
-  #full-closed + #app_content {
-    margin-left: -240px;
-  }
-
-  #full-open + #app_content {
-    margin-left: 0;
-  }
-
+  
   html,body,#app {
-    background: #eee;
-    margin: 0;
     height: 100%;
   }
   nav li {
@@ -185,6 +176,8 @@ export const uiServer = async (ctx: Context, config: Config) => {
 
   const Head = renderToString(
     <head>
+            <style type='text/css' dangerouslySetInnerHTML={{ __html: mainCSS }} />
+      
       <meta charSet='UTF-8' />
       <link rel='manifest' href='/manifest.json' />
       <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0' name='viewport' />
@@ -195,7 +188,7 @@ export const uiServer = async (ctx: Context, config: Config) => {
           .filter(({ type }) => type === 'style')
           .map(({ src }, index) => <link rel='stylesheet' type='text/css' href={src} key={index} />)}
       <style id='jss-server-side' dangerouslySetInnerHTML={{ __html: sheets.toString() }} />
-      <style type='text/css' dangerouslySetInnerHTML={{ __html: mainCSS }} />
+
     </head>
   );
 
@@ -227,15 +220,13 @@ export const uiServer = async (ctx: Context, config: Config) => {
         {sources &&
           sources
             .filter(({ type }) => type === 'script')
-            .reverse()
-            .map(({ src }, index) => <script async={true} type='text/javascript' charSet='utf-8' key={index} src={src} />)}
+            .map(({ src }, index) => <script type='text/javascript' charSet='utf8' key={index} src={src} />)}
       </>
     )}
   </body>
   </html>`;
 
   componentStream.on('end', () => {
-    ctx.res.write(test);
     ctx.res.write(htmlEnd);
 
     ctx.res.end();

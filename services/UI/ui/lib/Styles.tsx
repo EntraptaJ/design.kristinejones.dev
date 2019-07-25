@@ -14,11 +14,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1
     },
     button: {
-      marginTop: '1em',
-      
+      marginTop: '1em'
     },
     leftIcon: {
-      marginRight: theme.spacing(1),
+      marginRight: theme.spacing(1)
     },
     box: {
       flex: '1 1 auto',
@@ -52,12 +51,16 @@ export const useStyles = makeStyles((theme: Theme) =>
       willChange: 'margin-left',
       width: '100%'
     },
-    contentShift: {
+    contentDesktop: {
+      marginLeft: -drawerWidth
+    },
+    contentShiftDesktop: {
       // Good
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen
-      })
+      }),
+      marginLeft: 0
     },
     toolbar: theme.mixins.toolbar, // Good,
     redButton: {

@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { LabelListItem, LabelListItemProps } from 'ui/Components/Layout/Lists/ListItems/LabelListItem'
 import { Link } from '@reach/router';
 
-interface LinkListItemProps extends LabelListItemProps {
+export interface LinkListItemProps extends LabelListItemProps {
   to: string
 }
 

@@ -1,5 +1,6 @@
 // UI/ui/App.tsx
 import React, { FunctionComponent, useMemo } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { Routes } from 'ui/routes';
 import Loadable from 'react-loadable';
 import { Loading } from './Components/LoadingComponent';
@@ -50,6 +51,7 @@ const MainBody: FunctionComponent = () => {
 const App: AppType = () => {
   return (
     <>
+      <CssBaseline />
       <AppBar appName={`Kristian's Design`} />
       <MainBody />
     </>

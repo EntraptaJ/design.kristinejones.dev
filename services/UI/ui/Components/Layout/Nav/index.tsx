@@ -18,6 +18,8 @@ import { useNav } from './useNav';
 import { useSession } from 'ui/Components/SessionProvider';
 import { useTheme } from '@material-ui/styles';
 import { useLocation } from 'ui/Components/Layout/useLocation';
+import { ParentListItem } from '../Lists/ListItems/ParentListItem';
+import { LinkListItem } from '../Lists/ListItems/LinkListItem';
 
 interface NavMenuItemProps {
   to: string;
@@ -52,26 +54,6 @@ type NavMenuItemType = FunctionComponent<NavMenuItemProps>;
 
 export type NavType = FunctionComponent;
 
-const ParentListItem: FunctionComponent<{ label: string; startOpen?: boolean }> = ({ label, children, startOpen }) => {
-  const [open, setOpen] = useState<boolean>(startOpen ? true : false);
-  const classes = useListStyles();
-
-  const handleClick = () => setOpen(!open);
-
-  return (
-    <>
-      <ListItem button onClick={handleClick}>
-        <ListItemText primary={label} />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout='auto' unmountOnExit>
-        <List component='div' disablePadding className={classes.nested}>
-          {children}
-        </List>
-      </Collapse>
-    </>
-  );
-};
 
 const NavMenuItem: NavMenuItemType = ({ label, to, Loadable, ...props }) => {
   return (
@@ -106,14 +88,15 @@ const Nav: NavType = props => {
         <Fragment key={route.to}></Fragment>
       ) : route.children ? (
         typeof authMode === 'undefined' || authMode === isAuthed ? (
-          <ParentListItem key={route.to} startOpen={startOpen(route, Location.pathname)} label={route.label} key={route.to}>
-            <NavMenuItem selected={route.to === Location.pathname} {...route} /> {handleNavItems(route.children)}
+          <ParentListItem startOpen={startOpen(route, Location.pathname)} label={route.label} key={route.to}>
+            <LinkListItem key={route.to} selected={route.to === Location.pathname} to={route.to} label={route.label} />
+            {handleNavItems(route.children)}
           </ParentListItem>
         ) : (
           <Fragment key={route.to}></Fragment>
         )
       ) : typeof authMode === 'undefined' || authMode === isAuthed ? (
-        <NavMenuItem selected={startOpen(route, Location.pathname)} key={route.to} {...route} />
+        <LinkListItem key={route.to} selected={route.to === Location.pathname} {...route} />
       ) : (
         <Fragment key={route.path}></Fragment>
       )
