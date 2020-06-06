@@ -33,7 +33,7 @@
     "@nakanokurenai/mongoose-auto-increment": "^5.0.2",
     "@types/graphql": "^14.2.2",
     "altair-koa-middleware": "^2.2.0",
-    "apollo-server-koa": "^2.6.7",
+    "apollo-server-koa": "^2.14.2",
     "bcrypt": "^3.0.6",
     "fs-extra": "^8.1.0",
     "graphql": "^14.4.2",
