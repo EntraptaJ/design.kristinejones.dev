@@ -34,7 +34,7 @@
     "@types/graphql": "^14.2.2",
     "altair-koa-middleware": "^2.2.0",
     "apollo-server-koa": "^2.6.7",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "fs-extra": "^8.1.0",
     "graphql": "^14.4.2",
     "klaw": "^3.0.0",
